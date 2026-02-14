@@ -20,9 +20,9 @@ public class InputManager : MonoBehaviour
     {
         return moveAction.ReadValue<Vector2>();
     }
-    public float GetRotateAction()
+    public Vector2 GetRotateAction()
     {
-        return rotateAction.ReadValue<float>();
+        return rotateAction.ReadValue<Vector2>();
     }
     public float GetJumpAction()
     {
