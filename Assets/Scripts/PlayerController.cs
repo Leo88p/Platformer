@@ -6,13 +6,15 @@ public class PlayerController : MonoBehaviour
     private InputManager _inputManager;
     private Rigidbody _rb;
     public GameObject MainCamera;
-    private bool isJumping = false;
+    private bool isOnGround = true;
     private bool isOnRope = false;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         _inputManager = GetComponent<InputManager>();
         _rb = GetComponent<Rigidbody>();
+        EventManager.OnRopeTriggered += RopeTriggered;
+        EventManager.OnRopeExit += RopeExit;
     }
 
     // Update is called once per frame
@@ -21,16 +23,6 @@ public class PlayerController : MonoBehaviour
         Vector2 rotation = _inputManager.GetRotateAction();
         transform.Rotate(0, rotation.x, 0);
         MainCamera.transform.Rotate(-rotation.y, 0, 0);
-        Vector3 cameraAngles = MainCamera.transform.localEulerAngles;
-        if (cameraAngles.x > 45 && cameraAngles.x < 180)
-        {
-            cameraAngles.x = 45;
-        }
-        else if (cameraAngles.x >= 180 && cameraAngles.x < 315)
-        {
-            cameraAngles.x = 315;
-        }
-        MainCamera.transform.localEulerAngles = cameraAngles;
         Vector2 moveAction = _inputManager.GetMoveAction();
         if (!isOnRope)
         {
@@ -41,39 +33,60 @@ public class PlayerController : MonoBehaviour
         }
         else
         {
-            transform.position += 0.005f * moveAction.y * Vector3.up;
+            _rb.linearVelocity = 0.5f * moveAction.y * Vector3.up;
         }
-        if (_inputManager.GetJumpAction() > 0 && !isJumping)
+        if (_inputManager.GetJumpAction() > 0)
         {
-            _rb.AddForce(5 * transform.up, ForceMode.Impulse);
-            isJumping = true;
+            if (isOnGround)
+            {
+                _rb.AddForce(2 * transform.up, ForceMode.Impulse);
+            }
+            else if (isOnRope)
+            {
+                _rb.AddForce(5 * transform.forward, ForceMode.Impulse);
+            }
         }
     }
-    public void OnCollisionEnter(Collision collision)
+    void GroundCheck(Collision collision)
     {
-        if (collision.gameObject.CompareTag("Rope") && isJumping)
-        {
-            isJumping = false;
-            isOnRope = true;
-            _rb.isKinematic = true;
-            return;
-        }
         foreach (ContactPoint contact in collision.contacts)
         {
             if (Vector3.Dot(contact.normal, Vector3.up) > 0.75f)
             {
-                isJumping= false;
+                isOnGround = true;
                 return;
             }
         }
     }
-    public void OnCollisionExit(Collision collision)
+    void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.CompareTag("Rope"))
+        GroundCheck(collision);
+    }
+    void OnCollisionStay(Collision collision)
+    {
+        GroundCheck(collision);
+    }
+    void OnCollisionExit(Collision collision)
+    {
+        isOnGround = false;
+    }
+    void RopeTriggered()
+    {
+        if (!isOnGround)
         {
-            isJumping = true;
-            isOnRope = false;
-            _rb.isKinematic = false;
+            isOnRope = true;
+            _rb.linearVelocity = Vector3.zero;
+            _rb.useGravity = false;
         }
+        else
+        {
+            isOnRope = false;
+            _rb.useGravity = true;
+        }
+    }
+    void RopeExit()
+    {
+        isOnRope = false;
+        _rb.useGravity = true;
     }
 }
