@@ -5,6 +5,7 @@ public class PlayerController : MonoBehaviour
 {
     private InputManager _inputManager;
     private Rigidbody _rb;
+    private CapsuleCollider _collider;
     public GameObject MainCamera;
     private bool isOnGround = true;
     private bool isOnRope = false;
@@ -13,22 +14,24 @@ public class PlayerController : MonoBehaviour
     {
         _inputManager = GetComponent<InputManager>();
         _rb = GetComponent<Rigidbody>();
+        _collider = GetComponent<CapsuleCollider>();
     }
 
     // Update is called once per frame
     void FixedUpdate()
     {
         Vector2 rotation = _inputManager.GetRotateAction();
-        if (!isOnRope)
+        if (isOnRope)
+        {
+            Vector3 chainPosition = IsStillOnRope();
+            transform.RotateAround(chainPosition, Vector3.up, rotation.x);
+        }
+        else
         {
             transform.Rotate(0, rotation.x, 0);
         }
         MainCamera.transform.Rotate(-rotation.y, 0, 0);
         Vector2 moveAction = _inputManager.GetMoveAction();
-        if (isOnRope)
-        {
-            IsStillOnRope();
-        }
         if (!isOnRope)
         {
             Vector3 moveDirection = new Vector3(moveAction.x, 0, moveAction.y);
@@ -48,7 +51,9 @@ public class PlayerController : MonoBehaviour
             }
             else if (isOnRope)
             {
-                //_rb.AddForce(5 * transform.forward, ForceMode.Impulse);
+                _collider.isTrigger = true;
+                //transform.position += 0.5f * transform.forward;
+                _rb.AddForce(2 * transform.forward, ForceMode.Impulse);
             }
         }
     }
@@ -90,7 +95,7 @@ public class PlayerController : MonoBehaviour
             _rb.useGravity = true;
         }
     }
-    void IsStillOnRope()
+    Vector3 IsStillOnRope()
     {
         if (Physics.CapsuleCast(transform.position + 0.125f * Vector3.up, transform.position - 0.125f * Vector3.up,
             0.25f, transform.forward, out RaycastHit hit, 0.25f, LayerMask.GetMask("Rope")))
@@ -104,6 +109,14 @@ public class PlayerController : MonoBehaviour
             _rb.useGravity = true;
             _rb.linearVelocity = Vector3.zero;
         }
+        if (hit.collider != null)
+        {
+            return hit.collider.transform.position;
+        }
+        else
+        {
+            return transform.position;
+        }
     }
     void OnCollisionEnter(Collision collision)
     {
@@ -113,12 +126,14 @@ public class PlayerController : MonoBehaviour
     }
     void OnCollisionStay(Collision collision)
     {
-        if (collision.gameObject.CompareTag("Rope"))
-            RopeCheck(collision);
         GroundCheck(collision);
     }
     void OnCollisionExit(Collision collision)
     {
         isOnGround = false;
+    }
+    void OnTriggerExit(Collider other)
+    {
+        _collider.isTrigger = false;
     }
 }
