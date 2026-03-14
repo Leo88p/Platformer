@@ -7,6 +7,10 @@ public class GameManager : MonoBehaviour
     public TMP_Text scoreMessagePrefab;
     private int chainedCrystalsCount = 0;
     private float timeSinceLastCrystal = 1;
+    public bool Green_Key = false;
+    public bool Yellow_Key = false;
+    public bool Blue_Key = false;
+
     void Start()
     {
         EventManager.OnCrystalPicked += PickCrystal;
