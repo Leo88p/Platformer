@@ -812,6 +812,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Blue_Door
   GameManager: {fileID: 1991922039}
+  useRotation: 1
+  openAngle: {x: 0, y: 90, z: 0}
+  openDuration: 0.5
+  disableCollisionAfterOpen: 1
 --- !u!1 &832575517
 GameObject:
   m_ObjectHideFlags: 0
@@ -1176,7 +1180,7 @@ MonoBehaviour:
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player
   m_SplitScreenIndex: -1
-  m_Camera: {fileID: 0}
+  m_Camera: {fileID: 330585545}
 --- !u!114 &1520308313
 MonoBehaviour:
   m_ObjectHideFlags: 0
