@@ -1,0 +1,20 @@
+{
+  "locations": [
+    {
+      "locationId": "level1_intro_sign",
+      "texts": [
+        { "lang": "ru", "content": "Молись!" },
+        { "lang": "en", "texcontentt": "Pray!" },
+        { "lang": "de", "content": "Bet!" }
+      ]
+    },
+    {
+      "locationId": "level1_secret_note",
+      "texts": [
+        { "lang": "ru", "content": "Ты на верном пути" },
+        { "lang": "en", "content": "You are on thr right way" },
+        { "lang": "de", "content": "Du bist auf dem richtigen Weg" }
+      ]
+    }
+  ]
+}

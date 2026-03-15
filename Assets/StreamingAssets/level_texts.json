@@ -1,0 +1,20 @@
+{
+  "items": [
+    {
+      "id": "level1_intro_sign",
+      "translations": [
+        { "languageCode": "ru", "text": "Молись!" },
+        { "languageCode": "en", "text": "Pray!" },
+        { "languageCode": "de", "text": "Bet!" }
+      ]
+    },
+    {
+      "id": "level1_secret_note",
+      "translations": [
+        { "languageCode": "ru", "text": "Ты на верном пути" },
+        { "languageCode": "en", "text": "You are on thr right way" },
+        { "languageCode": "de", "text": "Du bist auf dem richtigen Weg" }
+      ]
+    }
+  ]
+}
