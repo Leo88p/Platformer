@@ -1,7 +1,9 @@
 using UnityEngine;
 
-public class Crystal : MonoBehaviour
+public class ItemScript : MonoBehaviour
 {
+    public Items ItemType;
+    public int scorePerItem;
     GameManager _gameManager;
     void Awake()
     {
@@ -11,7 +13,7 @@ public class Crystal : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            _gameManager.PickCrystal(transform.position, other.transform.rotation);
+            _gameManager.PickItem(ItemType, scorePerItem, transform.position, other.transform.rotation);
             Destroy(gameObject);
         }
     }

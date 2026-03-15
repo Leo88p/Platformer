@@ -9,6 +9,7 @@ public class Blue_Door : MonoBehaviour
     public Vector3 openAngle = new Vector3(0, 90, 0);  // Угол поворота при открытии
     public float openDuration = 0.5f;      // Время анимации открытия в секундах
     public bool disableCollisionAfterOpen = true;  // Отключить коллизию после открытия
+    public Items type;
 
     private bool isOpen = false;
     private Quaternion startRotation;
@@ -19,7 +20,7 @@ public class Blue_Door : MonoBehaviour
     {
         if (GameManager == null)
         {
-            GameManager = FindObjectOfType<GameManager>();
+            GameManager = FindFirstObjectByType<GameManager>();
             if (GameManager == null)
             {
                 Debug.LogError($"[{gameObject.name}] GameManager не найден на сцене!");
@@ -33,8 +34,9 @@ public class Blue_Door : MonoBehaviour
     private void OnCollisionEnter(Collision other)
     {
         // Принцип столкновения НЕ изменён: всё так же реагируем на OnCollisionEnter
-        if (other.gameObject.CompareTag("Player") && GameManager != null && GameManager.Blue_Key && !isOpen)
+        if (other.gameObject.CompareTag("Player") && GameManager != null && GameManager.inventory[type] > 0 && !isOpen)
         {
+            GameManager.OpenDoor(type, transform.position, other.transform.rotation);
             OpenDoor();
         }
     }
