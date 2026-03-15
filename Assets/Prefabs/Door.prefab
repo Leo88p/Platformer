@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4685828535557743934}
-  - component: {fileID: 8573990550021926900}
+  - component: {fileID: 8644874318733581984}
   m_Layer: 0
   m_Name: Door
   m_TagString: Untagged
@@ -34,27 +34,33 @@ Transform:
   - {fileID: 7923258316290958075}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!65 &8573990550021926900
-BoxCollider:
+--- !u!54 &8644874318733581984
+Rigidbody:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2761709226415044204}
-  m_Material: {fileID: 0}
+  serializedVersion: 5
+  m_Mass: 1
+  m_LinearDamping: 0
+  m_AngularDamping: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
     m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 0.18520951, y: 1.1435194, z: 1}
-  m_Center: {x: 0.42576182, y: 0.6293, z: 3.12837}
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 0
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1 &4134527126055869328
 GameObject:
   m_ObjectHideFlags: 0
@@ -82,13 +88,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4134527126055869328}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: 0.7151235, w: 0.6989982}
-  m_LocalPosition: {x: 0.418, y: 1.125, z: 3.129}
+  m_LocalRotation: {x: 0, y: 0, z: 0.7071068, w: 0.7071068}
+  m_LocalPosition: {x: 0, y: 1.125, z: 0}
   m_LocalScale: {x: 1, y: 0.080590785, z: 1.0934749}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 4685828535557743934}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 91.307}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 90}
 --- !u!33 &2388411313287004800
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -161,14 +167,14 @@ CapsuleCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_ProvidesContacts: 0
-  m_Enabled: 0
+  m_Enabled: 1
   serializedVersion: 2
   m_Radius: 0.5000001
   m_Height: 2
   m_Direction: 1
-  m_Center: {x: 0.000000059604645, y: 0, z: -0.00000008940697}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &5104858286488065905
 GameObject:
   m_ObjectHideFlags: 0
@@ -180,7 +186,7 @@ GameObject:
   - component: {fileID: 6982939740677082244}
   - component: {fileID: 7896653949728973105}
   - component: {fileID: 8113784524178110130}
-  - component: {fileID: 7069143767872704470}
+  - component: {fileID: 3131372167923815029}
   m_Layer: 0
   m_Name: Cube
   m_TagString: Untagged
@@ -197,7 +203,7 @@ Transform:
   m_GameObject: {fileID: 5104858286488065905}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.42357993, y: 0.6293, z: 3.12837}
+  m_LocalPosition: {x: 0, y: 0.6293, z: 0}
   m_LocalScale: {x: 0.1527, y: 1.1386, z: 1.0988163}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -260,7 +266,7 @@ MeshRenderer:
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &7069143767872704470
+--- !u!65 &3131372167923815029
 BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -275,9 +281,9 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_ProvidesContacts: 0
-  m_Enabled: 0
+  m_Enabled: 1
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
